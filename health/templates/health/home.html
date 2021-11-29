@@ -1,0 +1,165 @@
+{% extends "health/base.html" %} {% load static %} {% block content %}
+
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Medical Records</div>
+                        </div>
+                        
+                        <div class="col-auto">
+                            <a class="btn btn-primary" href="{% url 'record' pk=user.pk %}" >Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List of Staffs -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Appointment</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_users}}</div>
+                        </div>
+                        {% if request.user.is_staff %}  
+                        <div class="col-auto">
+                            <a class="btn btn-success" href="#">Accept</a>
+                        </div>
+                        <div class="col-auto">
+                            <a class="btn btn-danger" href="#">Decline</a>
+                        </div>  <!-- Content Row -->
+                       
+                        {%else%}
+                        <div class="col-auto">
+                            <a class="btn btn-primary" href="{% url 'appointment' %}">Book Appointment</a>
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    {% if request.user.is_staff %}    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">LIST OF PATIENTS</h6>
+
+            </div>
+            <!-- Card Body -->
+            <form method="GET" action=".">
+                <div class="input-group input-group-md-down-break">
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="ailment" id="genderTypeRadio1" value="Malaria">
+                            <label class="custom-control-label" for="genderTypeRadio1">Malaria</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+        
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="ailment" id="genderTypeRadio2" value="Typhoid">
+                            <label class="custom-control-label" for="genderTypeRadio2">Typhoid</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+        
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="ailment" id="genderTypeRadio3" value="Ebola">
+                            <label class="custom-control-label" for="genderTypeRadio3">Ebola</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="ailment" id="genderTypeRadio3" value="Diabetes">
+                            <label class="custom-control-label" for="genderTypeRadio3">Diabetes</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Search</button>
+        
+            </form>
+        
+            <div class="card-body">
+                <table class="table table-bordered table-dark" width="100%">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Sex</th>
+                        <th>Date of Birth</th>
+                        <th>Ailment</th>
+                    </tr>
+                    {% for post in posts %}
+                    {%if post.email.category == "PATIENT" %}
+                    <tr>
+                        <td>{{ post.email.full_name }}</td>
+                        <td>{{ post.gender }}</td>
+                        <td>{{ post.date_of_birth }}</td>
+                        <td>{{ post.ailment }}</td>
+                    </tr>
+                    {%endif%}
+                    {%endfor%}
+                 
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+{%endif%}
+    <!-- Content Row -->
+ 
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+{% endblock %}
