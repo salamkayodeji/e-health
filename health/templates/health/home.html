@@ -1,8 +1,6 @@
-{% extends "health/base.html" %} {% load static %} {% block content %}
+{% extends "health/base.html" %} {% load static %} 
 
-
-
-
+{% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -40,15 +38,11 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Appointment</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_users}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Accepted Appointments: {{accept}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rejected Appointments: {{decline}}</div>
                         </div>
                         {% if request.user.is_staff %}  
-                        <div class="col-auto">
-                            <a class="btn btn-success" href="#">Accept</a>
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn btn-danger" href="#">Decline</a>
-                        </div>  <!-- Content Row -->
+                      
                        
                         {%else%}
                         <div class="col-auto">
@@ -141,9 +135,56 @@
 
     </div>
 {%endif%}
-    <!-- Content Row -->
- 
 
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">APPOINTMENT</h6>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-dark" width="100%">
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Time booked</th>
+                        <th>Appointment Date</th>
+                        <th>STATUS</th>
+                        <td>ACCEPT</td>
+                        <td>DECLINE</td>
+                    </tr>
+                    {% for appoint in appoint %}
+
+                    <tr>
+                        <td>{{appoint.patientid.full_name}}</td>
+                        <td>{{appoint.time}}</td>
+                        <td>{{appoint.appointment_date|date:"M"}}</td>
+                        <td>{{appoint.status}}</td>
+                        <td>
+                        <div class="col-auto">
+                            <a class="btn btn-success" href="{% url 'appointment-accept' pk=appoint.pk %}">Accept</a>
+                        </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'appointment-decline' pk=appoint.pk %}">Decline</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    
+    
 </div>
 <!-- /.container-fluid -->
 

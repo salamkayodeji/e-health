@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'health.apps.HealthConfig',
     'crispy_forms',
-
 ]
 
 MIDDLEWARE = [
@@ -139,3 +138,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''
+EMAIL_HOST_USER = 'youremail@email.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True

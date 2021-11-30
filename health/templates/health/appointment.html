@@ -11,25 +11,7 @@
 
 <form enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
-                <div class="form-row">
-                    <label class="sr-only" for="doctorid">
-                        Doctor Name
-                      </label>
-                    
-                    <div class="form-group col-12">
-                        <div class="input-group">
-                    <select id="exampleFormControlSelect1" class="form-select" name="doctorid">
-                    <option value="">....</option>
-                    {% for doctor in doctor %}
-                    {%if doctor.category == "DOCTOR" %}
-                    <option value={{doctor.user}}>{{doctor.full_name}} -- {{doctor.email}}</option>
-                    {%endif%}
-                    {%endfor%}
-                  </select>
-                        </div>
-                    </div>
-                  </div>
-                  <!-- Input Group -->
+             
                 {{ form|crispy }}
     <button class="btn btn-block btn-primary">Send a Message </button>
 </form>
